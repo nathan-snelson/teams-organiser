@@ -1,0 +1,14 @@
+.monitor {
+    display: flex;
+    flex-direction: column;
+
+    .dispositionlist {
+        list-style-type: none;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+    }
+}

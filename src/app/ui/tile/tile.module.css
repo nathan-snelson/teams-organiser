@@ -1,0 +1,100 @@
+.tile {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    height: 180px;
+    width: 384px;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+
+        .closebutton {
+            background: none;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 24px;
+
+            &:hover {
+                color: red;
+            }
+        }
+
+        .headerinput {
+            font-size: 24px;
+            background: none;
+
+            &:focus-visible {
+                outline: none !important;
+            }
+        }
+    }
+
+
+    .savebutton {
+        background-color: darkgreen;
+        border: none;
+        width: 80px;
+        font-size: 24px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: lightgreen;
+        }
+    }
+
+    .indicator {
+        flex: 0 0 6px;
+        align-self: stretch;
+        margin-bottom: 16px;
+    }
+
+    .content {
+        flex: 1;
+        padding: 16px;
+
+        li {
+            display: flex;
+            list-style-type: none;
+            justify-content: space-between;
+            font-size: 20px;
+            line-height: 1.6;
+            padding-bottom: 16px;
+        }
+
+        .factioninput {
+            font-size: 20px;
+            background: none;
+
+            &:focus-visible {
+                outline: none !important;
+            }
+        }
+
+        .factionbutton {
+            background-color: darkgreen;
+            width: 100px;
+            border: none;
+            font-size: 20px;
+            padding: 8px;
+
+            &:hover {
+                cursor: pointer;
+                background-color: lightgreen;
+            }
+        }
+
+        .dispositionselect {
+            background: none;
+            border: none;
+            font-size: 20px;
+            width: 100%;
+            padding-top: 16px;
+
+            &:focus-visible {
+                outline: none !important;
+            }
+        }
+    }
+}
