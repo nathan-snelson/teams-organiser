@@ -64,13 +64,13 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
           editTitle ? (
             <>
               <input
-                  className={styles.headerinput}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                id="player-name-input"
+                className={styles.headerinput}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
 
               <button className={styles.savebutton} onClick={toggleSetEditTitle}>Save</button>
-
             </>
           ) : (
             <>
@@ -84,15 +84,14 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
       </div>
 
       <div className={styles.content}>
-        <ul>
+        <ul id="faction-list">
           {factions.map((faction) => (
             <li key={faction}>
               {faction}
-
-              <button className={styles.factionbutton} onClick={() => removeFaction(faction)}>Remove</button>
+              <button className={styles.factionremovebutton} onClick={() => removeFaction(faction)}>X</button>
             </li>
           ))}
-          <li>
+          <li style={{ display: allowNewFaction ? 'flex' : 'none' }}>
             {
               show ? (
                 <input
@@ -103,20 +102,12 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
                 />
               ) : (
                   allowNewFaction && (
-                    <span>Please add a faction</span>
+                    <span style={{ width: '75%' }}>Please add a faction</span>
                   )
               )
             }
 
-            {
-              show ? (
-                <button className={styles.factionbutton} onClick={addFaction}>Submit</button>
-              ) : (
-                  allowNewFaction && (
-                    <button className={styles.factionbutton} onClick={toggleShow}>Add</button>
-                  )
-              )
-            }
+            <button className={styles.factionbutton} onClick={ show ? addFaction : toggleShow }>Add</button>
           </li>
         </ul>
 
@@ -125,6 +116,7 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
         <div>
           <select
             className={styles.dispositionselect}
+            id="disposition-select"
             value={selectedDisposition?.tag ?? ""}
             onChange={(e) => dispositionChangedAction(e.target.value)}
           >
