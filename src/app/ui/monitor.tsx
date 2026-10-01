@@ -19,6 +19,8 @@ export default function Monitor() {
   const [tiles, setTiles] = useState<TileData[]>([
     { id: generateTileId(), disposition: null },
   ]);
+  const [playerLimit, setPlayerLimit] = useState(5);
+  const [playerLimitReached, setPlayerLimitReached] = useState(false);
 
   const setTileDisposition = (tileId: number, tag: string) => {
     const disposition = dispositions.find(
@@ -37,7 +39,9 @@ export default function Monitor() {
   };
 
   const addNewTile = () => {
-    setTiles((currentTiles) => {
+      setTiles((currentTiles) => {
+      const limitReached = currentTiles.length + 1 >= playerLimit;
+      if (limitReached) setPlayerLimitReached(!playerLimitReached);
       return [
         ...currentTiles,
         { id: generateTileId(), disposition: null }
@@ -46,7 +50,11 @@ export default function Monitor() {
   }
 
   const removeTile = (id: number) => {
-    setTiles((currentTiles) => currentTiles.filter(currentTile => currentTile.id !== id));
+      setTiles((currentTiles) => {
+          const limitReached = currentTiles.length - 1 >= playerLimit;
+          if (!limitReached) setPlayerLimitReached(!playerLimitReached);
+          return currentTiles.filter(currentTile => currentTile.id !== id)
+      });
   }
 
   const remainingDispositions = dispositions.filter(
@@ -58,23 +66,30 @@ export default function Monitor() {
 
   return (
       <div className={styles.monitor}>
-        <ul className={styles.dispositionlist}>
-          {remainingDispositions.map((disposition) => (
-            <li
-              key={disposition.tag}
-              style={{ backgroundColor: disposition.colour }}
-            >
-              {disposition.name}
-            </li>
-          ))}
-        </ul>
+        <div className={styles.header}>
+          <ul id="disposition-list" className={styles.dispositionlist}>
+            {remainingDispositions.map((disposition) => (
+              <li
+                key={disposition.tag}
+                style={{ backgroundColor: disposition.colour, color: disposition.colour }}
+              >
+                {disposition.name}
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.playercount}>
+            <label htmlFor="team-size">Enter the maximum number of players</label>
+            <input id="team-size" type="numeric" onChange={(e) => setPlayerLimit(Number(e.target.value))} />
+          </div>
+        </div>
 
         <div className={styles.content}>
           {tiles.map((tile) => (
             <Tile
               key={tile.id}
               tileId={tile.id}
-              dispositions={remainingDispositions}
+              dispositions={dispositions}
               selectedDisposition={tile.disposition}
               dispositionChangedAction={(tag) =>
                 setTileDisposition(tile.id, tag)
@@ -85,7 +100,9 @@ export default function Monitor() {
             />
           ))}
 
-          <TileSkeleton addNewTileAction={addNewTile}/>
+          {!playerLimitReached && (
+            <TileSkeleton addNewTileAction={addNewTile}/>
+          )}
         </div>
       </div>
     );

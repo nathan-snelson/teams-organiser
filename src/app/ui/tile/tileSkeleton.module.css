@@ -1,8 +1,8 @@
 .skeletonTile {
     display: flex;
     flex-direction: column;
-    padding: 16px 0;
-    height: 180px;
+    padding: 16px 12px;
+    height: 310px;
     width: 384px;
     cursor: pointer;
     border: 2px dashed #e0e0e0;
@@ -32,8 +32,14 @@
 }
 
 .content {
-  li {
-      list-style-type: none;
-      margin-bottom: 24px;
-  }
+    ul {
+        padding-top: 12px;
+        min-height: 158px;
+    }
+
+    li {
+        height: 32px;
+        list-style-type: none;
+        margin-bottom: 24px;
+    }
 }

@@ -1,14 +1,53 @@
 .monitor {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: auto;
 
-    .dispositionlist {
-        list-style-type: none;
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .dispositionlist {
+            list-style-type: none;
+            margin-bottom: 24px;
+
+            li {
+                max-width: 120px;
+            }
+        }
+
+        .playercount {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+
+            label {
+                font-size: 18px;
+                font-weight: 500;
+            }
+
+            input {
+                background: none;
+                border: none;
+                font-size: 18px;
+                width: auto;
+                height: 36px;
+                padding: 4px;
+
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+        }
     }
 
     .content {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 24px;
+        padding: 40px 24px;
     }
 }
