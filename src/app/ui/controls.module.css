@@ -1,27 +1,42 @@
-.monitor {
-    display: flex;
-    flex-direction: column;
+.controls {
     width: 100%;
     height: auto;
 
     .header {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
+        float: right;
+        width: 25%;
+        height: 100%;
+        padding: 24px;
+        gap: 24px;
+
+
+        .listtitle {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
         .dispositionlist {
             list-style-type: none;
-            margin-bottom: 24px;
 
             li {
-                max-width: 120px;
+                display: flex;
+                gap: 12px;
+            }
+
+            .dispositionindicator {
+                height: 24px;
+                width: 24px;
             }
         }
 
         .playercount {
             display: flex;
+            align-items: center;
             gap: 8px;
-            padding: 12px;
 
             label {
                 font-size: 18px;
@@ -48,6 +63,6 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 24px;
-        padding: 40px 24px;
+        padding: 24px;
     }
 }

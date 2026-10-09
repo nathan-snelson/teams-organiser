@@ -120,8 +120,6 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
             value={selectedDisposition?.tag ?? ""}
             onChange={(e) => dispositionChangedAction(e.target.value)}
           >
-            <option value="">Select disposition</option>
-
             {dispositions.map((disposition) => (
               <option
                 key={disposition.tag}
