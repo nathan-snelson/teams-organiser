@@ -1,11 +1,11 @@
 import styles from "./page.module.css";
-import Monitor from "./ui/monitor";
+import Controls from "./ui/controls";
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Monitor />
+        <Controls />
       </main>
     </div>
   );
