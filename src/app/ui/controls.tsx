@@ -9,12 +9,12 @@ import { generateTileId } from "@/helper";
 
 export default function Controls() {
   const dispositions: Disposition[] = [
-    { name: 'Select Disposition', colour: '', tag: '', exclude: true, count: 0 },
-    { name: 'Priority Assets', colour: 'darkgoldenrod', tag: 'priority', count: 0 },
-    { name: 'Reconnaissance', colour: 'teal', tag: 'recon', count: 0 },
-    { name: 'Take and Hold', colour: 'green', tag: 'take', count: 0 },
-    { name: 'Purge the Foe', colour: 'red', tag: 'purge', count: 0 },
-    { name: 'Disruption', colour: 'blue', tag: 'disrupt', count: 0 }
+    { name: 'Select Disposition', className: '', exclude: true, count: 0 },
+    { name: 'Priority Assets', className: 'priority', count: 0 },
+    { name: 'Reconnaissance', className: 'recon', count: 0 },
+    { name: 'Take and Hold', className: 'take-and-hold', count: 0 },
+    { name: 'Purge the Foe', className: 'purge', count: 0 },
+    { name: 'Disruption', className: 'disruption', count: 0 }
   ];
 
   const [tiles, setTiles] = useState<TileData[]>([
@@ -24,9 +24,9 @@ export default function Controls() {
   const playerLimitReached = tiles.length >= playerLimit;
   const [allowDoubling, setAllowDoubling] = useState(false);
 
-  const setTileDisposition = (tileId: number, tag: string) => {
+  const setTileDisposition = (tileId: number, name: string) => {
     const disposition = dispositions.find(
-      (disposition) => disposition.tag === tag
+      (disposition) => disposition.name === name
     );
 
     if (!disposition) return;
@@ -59,7 +59,7 @@ export default function Controls() {
   const dispositionsWithCounts = dispositions.map((disposition) => ({
     ...disposition,
     count: tiles.filter(
-      (tile) => tile.disposition?.tag === disposition.tag
+      (tile) => tile.disposition?.name === disposition.name
     ).length,
   }));
 
@@ -78,20 +78,22 @@ export default function Controls() {
   return (
       <div className={styles.controls}>
         <div className={styles.header}>
-          <div className={styles.playercount}>
+          <div className={styles['player-count']}>
             <label htmlFor="team-size">Maximum number of players</label>
             <input id="team-size" type="numeric" placeholder={playerLimit.toString()} onChange={(e) => updatePlayerLimit(Number(e.target.value))} />
           </div>
 
-          <div className={styles.listtitle}>
+          <div className={styles['list-title']}>
             <span>Key</span>
-            <ul id="disposition-key" className={styles.dispositionlist}>
+            <ul id="disposition-key" className={styles['disposition-list']}>
               {dispositions.map((disposition) => (
                 !disposition.exclude && (
                   <li
-                    key={disposition.tag}
+                    key={disposition.name}
                   >
-                    <div className={styles.dispositionindicator} style={{ backgroundColor: disposition.colour }}></div>
+                    <div
+                        className={`${styles['disposition-indicator']} ${styles[disposition.className]}`}
+                    />
                     <span>{disposition.name}</span>
                   </li>
                 )
@@ -99,15 +101,17 @@ export default function Controls() {
             </ul>
           </div>
 
-          <div className={styles.listtitle}>
+          <div className={styles['list-title']}>
             <span>Remaining Dispositions</span>
-            <ul id="remaining-disposition-list" className={styles.dispositionlist}>
+            <ul id="remaining-disposition-list" className={styles['disposition-list']}>
             {remainingDispositions.map((disposition) => (
               !disposition.exclude && (
                 <li
-                  key={'remaining-' + disposition.tag}
+                  key={'remaining-' + disposition.name}
                 >
-                  <div className={styles.dispositionindicator} style={{ backgroundColor: disposition.colour }}></div>
+                  <div
+                      className={`${styles['disposition-indicator']} ${styles[disposition.className]}`}
+                  />
                   <span>{disposition.name}</span>
                   {
                     allowDoubling && (
@@ -128,8 +132,8 @@ export default function Controls() {
               tileId={tile.id}
               dispositions={dispositions}
               selectedDisposition={tile.disposition}
-              dispositionChangedAction={(tag) =>
-                setTileDisposition(tile.id, tag)
+              dispositionChangedAction={(name) =>
+                setTileDisposition(tile.id, name)
               }
               removeTileAction={(id) =>
                 removeTile(id)

@@ -6,23 +6,43 @@
     min-height: 310px;
     width: 378px;
 
+    .take-and-hold {
+        background-color: var(--disposition-take-and-hold);
+    }
+
+    .purge {
+        background-color: var(--disposition-purge-the-foe);
+    }
+
+    .recon {
+        background-color: var(--disposition-reconnaissance);
+    }
+
+    .disruption {
+        background-color: var(--disposition-disruption);
+    }
+
+    .priority {
+        background-color: var(--disposition-priority-assets);
+    }
+
     .title {
         display: flex;
         justify-content: space-between;
 
-        .closebutton {
+        .close-button {
             background: none;
-            color: white;
+            color: #FFF;
             cursor: pointer;
             border: none;
             font-size: 24px;
 
             &:hover {
-                color: red;
+                color: #ff2c2c;
             }
         }
 
-        .headerinput {
+        .header-input {
             font-size: 24px;
             background: none;
             border: none;
@@ -33,7 +53,7 @@
         }
     }
 
-    .savebutton {
+    .save-button {
         background-color: darkgreen;
         border: none;
         width: 80px;
@@ -68,7 +88,7 @@
             padding-bottom: 16px;
         }
 
-        .factioninput {
+        .faction-input {
             font-size: 20px;
             background: none;
             border: none;
@@ -79,7 +99,7 @@
             }
         }
 
-        .factionbutton {
+        .faction-button {
             background-color: darkgreen;
             width: 100px;
             border: none;
@@ -92,19 +112,19 @@
             }
         }
 
-        .factionremovebutton {
+        .faction-remove-button {
             background: none;
-            color: white;
+            color: #FFF;
             cursor: pointer;
             border: none;
             font-size: 20px;
 
             &:hover {
-                color: red;
+                color: #ff2c2c;
             }
         }
 
-        .dispositionselect {
+        .disposition-select {
             background: none;
             border: none;
             font-size: 20px;

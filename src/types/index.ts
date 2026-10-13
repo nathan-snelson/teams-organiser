@@ -1,7 +1,6 @@
 export type Disposition = {
   name: string;
-  colour: string;
-  tag: string;
+  className: string;
   exclude?: boolean;
   count: number;
 }
