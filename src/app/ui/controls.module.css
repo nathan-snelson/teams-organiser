@@ -1,6 +1,27 @@
 .controls {
     width: 100%;
     height: auto;
+    font-size: 20px;
+
+    .take-and-hold {
+        background-color: var(--disposition-take-and-hold);
+    }
+
+    .purge {
+        background-color: var(--disposition-purge-the-foe);
+    }
+
+    .recon {
+        background-color: var(--disposition-reconnaissance);
+    }
+
+    .disruption {
+        background-color: var(--disposition-disruption);
+    }
+
+    .priority {
+        background-color: var(--disposition-priority-assets);
+    }
 
     .header {
         display: flex;
@@ -12,14 +33,13 @@
         padding: 24px;
         gap: 24px;
 
-
-        .listtitle {
+        .list-title {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .dispositionlist {
+        .disposition-list {
             list-style-type: none;
 
             li {
@@ -27,29 +47,28 @@
                 gap: 12px;
             }
 
-            .dispositionindicator {
+            .disposition-indicator {
                 height: 24px;
                 width: 24px;
             }
         }
 
-        .playercount {
+        .player-count {
             display: flex;
             align-items: center;
             gap: 8px;
 
             label {
-                font-size: 18px;
                 font-weight: 500;
             }
 
             input {
                 background: none;
                 border: none;
-                font-size: 18px;
                 width: auto;
                 height: 36px;
                 padding: 4px;
+                font-size: 20px;
 
                 &:focus-visible {
                     outline: none;

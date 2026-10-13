@@ -1,4 +1,4 @@
-.skeletonTile {
+.skeleton-tile {
     display: flex;
     flex-direction: column;
     padding: 16px 12px;
@@ -8,14 +8,14 @@
     border: 2px dashed #e0e0e0;
 }
 
-.skeletonTitle {
+.skeleton-title {
   width: 60%;
   height: 10px;
   border-radius: 5px;
   background: #e0e0e0;
 }
 
-.skeletonLine {
+.skeleton-line {
   width: 80%;
   height: 7px;
   border-radius: 4px;
@@ -23,7 +23,7 @@
   margin: 14px 0;
 }
 
-.skeletonSelect {
+.skeleton-select {
   width: 50%;
   height: 10px;
   border-radius: 5px;

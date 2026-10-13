@@ -6,28 +6,28 @@ type TileSkeletonProps = {
 
 export default function TileSkeleton({ addNewTileAction }: TileSkeletonProps) {
   return (
-    <div onClick={addNewTileAction} className={styles.skeletonTile}>
-      <div className={styles.skeletonTitle}></div>
+    <div onClick={addNewTileAction} className={styles['skeleton-tile']}>
+      <div className={styles['skeleton-title']}></div>
 
       <div className={styles.content}>
         <ul>
           <li>
-            <div className={styles.skeletonLine}></div>
+            <div className={styles['skeleton-line']}></div>
           </li>
 
           <li>
-            <div className={styles.skeletonLine}></div>
+            <div className={styles['skeleton-line']}></div>
           </li>
 
           <li>
-            <div className={styles.skeletonLine}></div>
+            <div className={styles['skeleton-line']}></div>
           </li>
         </ul>
 
         <hr />
 
         <div>
-          <div className={styles.skeletonSelect}></div>
+          <div className={styles['skeleton-select']}></div>
         </div>
       </div>
     </div>
