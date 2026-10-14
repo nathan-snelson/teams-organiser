@@ -3,16 +3,16 @@
 import { useState } from "react";
 import { Disposition } from "@/types";
 import styles from './tile.module.css';
+import { dispositions } from "@/helper";
 
 type TileProps = {
   dispositionChangedAction: (disposition: string) => void;
-  dispositions: Disposition[];
   selectedDisposition: Disposition | null;
   removeTileAction: (id: number) => void;
   tileId: number;
 };
 
-export default function Tile({ dispositionChangedAction, dispositions, selectedDisposition, removeTileAction, tileId }: TileProps) {
+export default function Tile({ dispositionChangedAction, selectedDisposition, removeTileAction, tileId }: TileProps) {
   const [factions, setFactions] = useState<string[]>([]);
   const [newFaction, setNewFaction] = useState("");
   const [show, setIsShow] = useState(false);
@@ -65,7 +65,7 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
         )
       }
 
-      <div className={styles.title}>
+      <div className={styles.title} onPointerLeave={() => setEditTitle(false)}>
         {
           editTitle ? (
             <>
@@ -86,7 +86,6 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
             </>
           )
         }
-
       </div>
 
       <div className={styles.content}>
@@ -97,7 +96,7 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
               <button className={styles['faction-remove-button']} onClick={() => removeFaction(faction)}>X</button>
             </li>
           ))}
-          <li style={{ display: allowNewFaction ? 'flex' : 'none' }}>
+          <li style={{ display: allowNewFaction ? 'flex' : 'none' }} onPointerLeave={() => setIsShow(false)}>
             {
               show ? (
                 <input
@@ -108,12 +107,12 @@ export default function Tile({ dispositionChangedAction, dispositions, selectedD
                 />
               ) : (
                   allowNewFaction && (
-                    <span style={{ width: '75%' }}>Please add a faction</span>
+                    <span onClick={toggleShow} style={{ width: '75%' }}>Click to add a faction</span>
                   )
               )
             }
 
-            <button className={styles['faction-button']} onClick={ show ? addFaction : toggleShow }>Add</button>
+            <button className={styles['faction-button']} style={{ display: show ? 'block' : 'none'}} onClick={addFaction}>+</button>
           </li>
         </ul>
 

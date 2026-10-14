@@ -29,8 +29,11 @@
     .title {
         display: flex;
         justify-content: space-between;
+        padding-bottom: 4px;
 
         .close-button {
+            opacity: 0;
+            visibility: hidden;
             background: none;
             color: #FFF;
             cursor: pointer;
@@ -42,26 +45,32 @@
             }
         }
 
+        &:hover .close-button,
+        &:focus-within .close-button {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .header-input {
-            font-size: 24px;
+            font-size: 30px;
             background: none;
             border: none;
+            width: 75%;
 
             &:focus-visible {
-                outline: none !important;
+                outline: none;
             }
         }
     }
 
     .save-button {
-        background-color: darkgreen;
+        background: none;
         border: none;
-        width: 80px;
         font-size: 24px;
 
         &:hover {
             cursor: pointer;
-            background-color: lightgreen;
+            color: #228B22;
         }
     }
 
@@ -73,7 +82,6 @@
 
     .content {
         flex: 1;
-        padding: 16px;
 
         ul {
             min-height: 158px;
@@ -83,13 +91,14 @@
             display: flex;
             list-style-type: none;
             justify-content: space-between;
-            font-size: 20px;
+            font-size: 24px;
             line-height: 1.6;
-            padding-bottom: 16px;
+            padding: 0 4px 12px 0;
         }
 
         .faction-input {
-            font-size: 20px;
+            font-size: 24px;
+            line-height: 1.6;
             background: none;
             border: none;
             width: 75%;
@@ -100,39 +109,46 @@
         }
 
         .faction-button {
-            background-color: darkgreen;
-            width: 100px;
+            background: none;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             padding: 8px;
 
             &:hover {
                 cursor: pointer;
-                background-color: lightgreen;
+                color: #228B22;
             }
         }
 
         .faction-remove-button {
+            opacity: 0;
+            visibility: hidden;
             background: none;
             color: #FFF;
             cursor: pointer;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
 
             &:hover {
                 color: #ff2c2c;
             }
         }
 
+        li:hover .faction-remove-button,
+        li:focus-within .faction-remove-button {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .disposition-select {
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             width: 100%;
             padding-top: 16px;
 
             option {
-                background: black;
+                background: #000;
             }
 
             &:focus-visible {
