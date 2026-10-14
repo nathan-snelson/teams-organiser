@@ -4,19 +4,10 @@ import { useState } from "react";
 import Tile from "./tile/tile";
 import TileSkeleton from "./tile/tileSkeleton";
 import styles from './controls.module.css';
-import { Disposition, TileData } from "@/types";
-import { generateTileId } from "@/helper";
+import { TileData } from "@/types";
+import { generateTileId, dispositions } from "@/helper";
 
 export default function Controls() {
-  const dispositions: Disposition[] = [
-    { name: 'Select Disposition', className: '', exclude: true, count: 0 },
-    { name: 'Priority Assets', className: 'priority', count: 0 },
-    { name: 'Reconnaissance', className: 'recon', count: 0 },
-    { name: 'Take and Hold', className: 'take-and-hold', count: 0 },
-    { name: 'Purge the Foe', className: 'purge', count: 0 },
-    { name: 'Disruption', className: 'disruption', count: 0 }
-  ];
-
   const [tiles, setTiles] = useState<TileData[]>([
     { id: generateTileId(), disposition: null },
   ]);
@@ -130,7 +121,6 @@ export default function Controls() {
             <Tile
               key={tile.id}
               tileId={tile.id}
-              dispositions={dispositions}
               selectedDisposition={tile.disposition}
               dispositionChangedAction={(name) =>
                 setTileDisposition(tile.id, name)
