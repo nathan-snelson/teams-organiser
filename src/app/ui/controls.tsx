@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Tile from "./tile/tile";
+import TopBar from "./topBar/topBar";
 import TileSkeleton from "./tile/tileSkeleton";
 import styles from './controls.module.css';
 import { TileData } from "@/types";
@@ -67,8 +68,11 @@ export default function Controls() {
   }
 
   return (
+    <>
+      <TopBar></TopBar>
       <div className={styles.controls}>
         <div className={styles.header}>
+
           <div className={styles['player-count']}>
             <label htmlFor="team-size">Maximum number of players</label>
             <input id="team-size" type="numeric" placeholder={playerLimit.toString()} onChange={(e) => updatePlayerLimit(Number(e.target.value))} />
@@ -136,5 +140,6 @@ export default function Controls() {
           )}
         </div>
       </div>
+    </>
     );
 }
