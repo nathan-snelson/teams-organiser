@@ -1,52 +1,17 @@
 'use client'
 
-import { useState } from "react";
-import Tile from "./tile/tile";
-import TopBar from "./topBar/topBar";
-import TileSkeleton from "./tile/tileSkeleton";
+import TopBar from "../topBar/topBar";
 import styles from './controls.module.css';
 import { TileData } from "@/types";
-import { generateTileId, dispositions } from "@/helper";
+import { dispositions } from "@/helper";
 
-export default function Controls() {
-  const [tiles, setTiles] = useState<TileData[]>([
-    { id: generateTileId(), disposition: null },
-  ]);
-  const [playerLimit, setPlayerLimit] = useState(5);
-  const playerLimitReached = tiles.length >= playerLimit;
-  const [allowDoubling, setAllowDoubling] = useState(false);
+type ControlsProps = {
+  tiles: TileData[];
+  setPlayerLimitAction: (limit: number) => void;
+  allowDoubling: boolean
+}
 
-  const setTileDisposition = (tileId: number, name: string) => {
-    const disposition = dispositions.find(
-      (disposition) => disposition.name === name
-    );
-
-    if (!disposition) return;
-
-    setTiles((currentTiles) =>
-      currentTiles.map((tile) =>
-        tile.id === tileId
-          ? { ...tile, disposition }
-          : tile
-      )
-    );
-  };
-
-  const addNewTile = () => {
-    setTiles((currentTiles) => {
-      return [
-        ...currentTiles,
-        { id: generateTileId(), disposition: null }
-      ]
-    })
-  }
-
-  const removeTile = (id: number) => {
-    setTiles((currentTiles) => {
-      return currentTiles.filter(currentTile => currentTile.id !== id)
-    });
-  }
-
+export default function Controls({ tiles, setPlayerLimitAction, allowDoubling }: ControlsProps) {
   const maxDispositionCount = allowDoubling ? 2 : 1;
   const dispositionsWithCounts = dispositions.map((disposition) => ({
     ...disposition,
@@ -61,21 +26,17 @@ export default function Controls() {
       disposition.count < maxDispositionCount
   );
 
-  const updatePlayerLimit = (limit: number) => {
-    const doubling = limit > 5;
-    setAllowDoubling(doubling);
-    setPlayerLimit(limit);
-  }
-
   return (
     <>
-      <TopBar></TopBar>
       <div className={styles.controls}>
-        <div className={styles.header}>
+        <div className={styles['control-bar']}>
+          <TopBar></TopBar>
+        </div>
 
+        <div className={styles.header}>
           <div className={styles['player-count']}>
             <label htmlFor="team-size">Maximum number of players</label>
-            <input id="team-size" type="numeric" placeholder={playerLimit.toString()} onChange={(e) => updatePlayerLimit(Number(e.target.value))} />
+            <input id="team-size" type="numeric" placeholder="5" onChange={(e) => setPlayerLimitAction(Number(e.target.value))} />
           </div>
 
           <div className={styles['list-title']}>
@@ -118,26 +79,6 @@ export default function Controls() {
             ))}
             </ul>
           </div>
-        </div>
-
-        <div className={styles.content}>
-          {tiles.map((tile) => (
-            <Tile
-              key={tile.id}
-              tileId={tile.id}
-              selectedDisposition={tile.disposition}
-              dispositionChangedAction={(name) =>
-                setTileDisposition(tile.id, name)
-              }
-              removeTileAction={(id) =>
-                removeTile(id)
-              }
-            />
-          ))}
-
-          {!playerLimitReached && (
-            <TileSkeleton addNewTileAction={addNewTile}/>
-          )}
         </div>
       </div>
     </>

@@ -7,8 +7,8 @@ export default function TopBar() {
       <Image
         src="/teams_organiser_logo.png"
         alt="teams organiser logo"
-        width={320}
-        height={107}
+        width={240}
+        height={80}
         priority
       />
     </div>
