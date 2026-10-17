@@ -1,0 +1,37 @@
+.organiser {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+
+    .take-and-hold {
+        background-color: var(--disposition-take-and-hold);
+    }
+
+    .purge {
+        background-color: var(--disposition-purge-the-foe);
+    }
+
+    .recon {
+        background-color: var(--disposition-reconnaissance);
+    }
+
+    .disruption {
+        background-color: var(--disposition-disruption);
+    }
+
+    .priority {
+        background-color: var(--disposition-priority-assets);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        padding: 24px;
+        width: 100%;
+    }
+}
