@@ -20,7 +20,7 @@ export default function Tile({ dispositionChangedAction, selectedDisposition, re
   const [show, setIsShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("Players name");
-  const allowNewFaction = factions.length <= 3
+  const allowNewFaction = factions.length <= 2
   const id = tileId;
 
   const toggleShow = () => {
