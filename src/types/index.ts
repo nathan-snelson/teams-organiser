@@ -8,4 +8,5 @@ export type Disposition = {
 export type TileData = {
   id: number;
   disposition: Disposition | null;
+  factions: string[]
 }

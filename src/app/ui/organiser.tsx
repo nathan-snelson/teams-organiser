@@ -10,7 +10,7 @@ import { generateTileId, dispositions } from "@/helper";
 
 export default function Organiser() {
   const [tiles, setTiles] = useState<TileData[]>([
-    { id: generateTileId(), disposition: null },
+    { id: generateTileId(), disposition: null, factions: [] },
   ]);
   const [playerLimit, setPlayerLimit] = useState(5);
   const playerLimitReached = tiles.length >= playerLimit;
@@ -36,7 +36,7 @@ export default function Organiser() {
     setTiles((currentTiles) => {
       return [
         ...currentTiles,
-        { id: generateTileId(), disposition: null }
+        { id: generateTileId(), disposition: null, factions: [] }
       ]
     })
   }
@@ -53,6 +53,34 @@ export default function Organiser() {
     setPlayerLimit(limit);
   }
 
+  const addFaction = (tileId: number, newFaction: string) => {
+      setTiles((currentTiles) =>
+        currentTiles.map((tile) =>
+          tile.id === tileId
+            ? {
+              ...tile,
+              factions: [...tile.factions, newFaction]
+            }
+          : tile
+      )
+    );
+  }
+
+  const removeFaction = (tileId: number, oldFaction: string) => {
+    setTiles((currentTiles) =>
+      currentTiles.map((tile) =>
+        tile.id === tileId
+          ? {
+            ...tile,
+              factions: tile.factions.filter(
+              (currentFaction) => currentFaction !== oldFaction
+            ),
+          }
+        : tile
+      )
+    )
+  }
+
   return (
     <>
       <div className={styles.organiser}>
@@ -62,12 +90,15 @@ export default function Organiser() {
               key={tile.id}
               tileId={tile.id}
               selectedDisposition={tile.disposition}
+              factions={tile.factions}
               dispositionChangedAction={(name) =>
                 setTileDisposition(tile.id, name)
               }
               removeTileAction={(id) =>
                 removeTile(id)
               }
+              addFactionAction={(tileId, newFaction) => addFaction(tileId, newFaction)}
+              removeFactionAction={(tileId, oldFaction) => removeFaction(tileId, oldFaction)}
             />
           ))}
 

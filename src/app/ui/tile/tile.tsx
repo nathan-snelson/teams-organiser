@@ -10,30 +10,18 @@ type TileProps = {
   selectedDisposition: Disposition | null;
   removeTileAction: (id: number) => void;
   tileId: number;
+  factions: string[];
+  addFactionAction: (tileId: number, faction: string) => void;
+  removeFactionAction: (tileId: number, faction: string) => void;
 };
 
-export default function Tile({ dispositionChangedAction, selectedDisposition, removeTileAction, tileId }: TileProps) {
-  const [factions, setFactions] = useState<string[]>([]);
+export default function Tile({ dispositionChangedAction, selectedDisposition, removeTileAction, tileId, factions, addFactionAction, removeFactionAction }: TileProps) {
   const [newFaction, setNewFaction] = useState("");
   const [show, setIsShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("Players name");
-  const [allowNewFaction, setAllowNewFaction] = useState(true);
+  const allowNewFaction = factions.length <= 2
   const id = tileId;
-
-  const addFaction = () => {
-    setFactions((currentFactions) => [
-      ...currentFactions,
-      newFaction,
-    ]);
-    setIsShow(false);
-    setNewFaction('');
-
-    const limitReached = factions.length >= 2;
-    if (limitReached) {
-      setAllowNewFaction(false);
-    };
-  }
 
   const toggleShow = () => {
     setIsShow(!show);
@@ -42,18 +30,6 @@ export default function Tile({ dispositionChangedAction, selectedDisposition, re
   const toggleSetEditTitle = () => {
     setEditTitle(!editTitle);
   }
-
-  const removeFaction = (faction: string) => {
-    setFactions((currentFactions) => {
-      const filteredList = currentFactions.filter(currentFaction => currentFaction !== faction);
-      const underLimit = filteredList.length < 3;
-      if (underLimit) {
-        setAllowNewFaction(true);
-      }
-
-      return filteredList;
-    })
-  };
 
   return (
     <div className={styles.tile}>
@@ -93,7 +69,7 @@ export default function Tile({ dispositionChangedAction, selectedDisposition, re
           {factions.map((faction) => (
             <li key={faction}>
               {faction}
-              <button className={styles['faction-remove-button']} onClick={() => removeFaction(faction)}>X</button>
+              <button className={styles['faction-remove-button']} onClick={() => removeFactionAction(id, faction)}>X</button>
             </li>
           ))}
           <li style={{ display: allowNewFaction ? 'flex' : 'none' }} onPointerLeave={() => setIsShow(false)}>
@@ -102,7 +78,6 @@ export default function Tile({ dispositionChangedAction, selectedDisposition, re
                 <input
                   className={styles['faction-input']}
                   placeholder="Faction.."
-                  value={newFaction}
                   onChange={(e) => setNewFaction(e.target.value)}
                 />
               ) : (
@@ -112,7 +87,7 @@ export default function Tile({ dispositionChangedAction, selectedDisposition, re
               )
             }
 
-            <button className={styles['faction-button']} style={{ display: show ? 'block' : 'none'}} onClick={addFaction}>+</button>
+            <button className={styles['faction-button']} style={{ display: show ? 'block' : 'none'}} onClick={() => addFactionAction(id, newFaction)}>+</button>
           </li>
         </ul>
 
